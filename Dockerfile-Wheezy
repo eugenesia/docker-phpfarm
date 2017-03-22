@@ -52,6 +52,13 @@ RUN apt-get update && \
     vim \
     wget
 
+# Upgrade git client from backports as git in Wheezy uses dumb-http.
+# dumb-http is no longer supported by Github.
+# See https://github.com/blog/809-git-dumb-http-transport-to-be-turned-off-in-90-days
+RUN echo 'deb http://ftp.debian.org/debian wheezy-backports main' > /etc/apt/sources.list.d/wheezy-backports.list && \
+  apt-get update && \
+  apt-get -t wheezy-backports install -y git
+
 # reconfigure Apache
 RUN rm -rf /var/www/*
 COPY var-www /var/www/
