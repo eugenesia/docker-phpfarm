@@ -93,6 +93,9 @@ ENV PHP_FARM_VERSIONS="5.3.29 5.4.44 5.5.38 5.6.31 7.0.21 7.1.7" \
 RUN apt-get update && \
   apt-get install -y --no-install-recommends $SCRIPT_PKGS $BUILD_PKGS && \
   \
+  # DEBUG
+  apt-get install -y lsof && set -vx && \
+  \
   # Download PhpFarm v0.2.0 scripts into /phpfarm/.
   wget -O /phpfarm.tar.gz https://github.com/fpoirotte/phpfarm/archive/v0.2.0.tar.gz && \
   mkdir /phpfarm && \
@@ -105,6 +108,8 @@ RUN apt-get update && \
   \
   # Build all PHP versions.
   cd /phpfarm/src && \
+  # DEBUG
+  lsof && hostname && ps aux && ls -al && \
   ./docker.sh && \
   \
   # Clean up.

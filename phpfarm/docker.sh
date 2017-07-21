@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vx
 # this script builds everything for docker
 
 
