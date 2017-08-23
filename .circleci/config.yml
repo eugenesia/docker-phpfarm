@@ -10,9 +10,9 @@ jobs:
     machine:
       enabled: true
       image: circleci/classic:edge
-    docker:
-      # Image for build runner.
-      - image: docker:17.06
+    # docker:
+    #   # Image for build runner.
+    #   - image: docker:17.06
     steps:
       - checkout
       # No need to setup_remote_docker with machine executor.
@@ -21,8 +21,9 @@ jobs:
           name: Setup build runner
           command: |
             # Packages needed for test scripts.
-            apk --no-cache add bash php5
-            ln -s /usr/bin/php5 /usr/bin/php
+            # apk --no-cache add bash php5
+            # ln -s /usr/bin/php5 /usr/bin/php
+            sudo apt-get install -y php5
             # Needed to push built Docker images to registry.
             docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
