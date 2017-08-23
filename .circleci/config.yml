@@ -15,7 +15,8 @@ jobs:
     #   - image: docker:17.06
     steps:
       - checkout
-      - setup_remote_docker
+      # No need to setup_remote_docker with machine executor.
+      # - setup_remote_docker
       - run:
           name: Setup build runner
           command: |
@@ -28,7 +29,8 @@ jobs:
           name: 'Jessie: build'
           command: |
             # --squash not allowed as Docker daemon doesn't have experimental features.
-             docker build -t eugenesia/phpfarm:jessie -t eugenesia/phpfarm:latest -f Dockerfile-Jessie .
+            # docker build -t eugenesia/phpfarm:jessie -t eugenesia/phpfarm:latest -f Dockerfile-Jessie .
+            docker build --squash -t eugenesia/phpfarm:jessie -t eugenesia/phpfarm:latest -f Dockerfile-Jessie .
       - run:
           name: 'Jessie: test and push'
           command: |
