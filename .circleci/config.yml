@@ -5,9 +5,14 @@
 version: 2
 jobs:
   build:
-    docker:
-      # Image for build runner.
-      - image: docker:17.06
+    # Use machine executor for bleeding edge Docker daemon 17.06.0-ce.
+    # https://circleci.com/docs/2.0/executor-types/#machine-executor-overview
+    machine:
+      enabled: true
+      image: circleci/classic:edge
+    # docker:
+    #   # Image for build runner.
+    #   - image: docker:17.06
     steps:
       - checkout
       - setup_remote_docker
