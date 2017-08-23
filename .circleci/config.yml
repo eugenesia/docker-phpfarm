@@ -20,11 +20,16 @@ jobs:
       - run:
           name: Setup build runner
           command: |
+            # Restart Docker with experimental features on.
+            sudo sh -c 'echo '\''DOCKER_OPTS="--experimental=true"'\'' >> /etc/default/docker'
+            sudo service docker restart
+
             # Packages needed for test scripts.
             # apk --no-cache add bash php5
             # ln -s /usr/bin/php5 /usr/bin/php
             sudo apt-get update
             sudo apt-get install -y php5
+
             # Needed to push built Docker images to registry.
             docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
